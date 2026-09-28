@@ -1,0 +1,1659 @@
+{
+    "name": "Integration Frame.io, Tools, Adobe Firefly Lightroom",
+    "flow": [
+        {
+            "id": null,
+            "module": "placeholder:Placeholder",
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 4,
+            "module": "frame-io:ActionGetAsset",
+            "version": 4,
+            "parameters": {
+                "__IMTCONN__": 193378
+            },
+            "mapper": {
+                "assetID": "7cdd746f-857b-4e6c-86ad-4a01ff532840",
+                "accountID": "8d7e7b30-0534-498d-8038-89fdb89abb3b"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 180,
+                    "y": 0
+                },
+                "restore": {
+                    "accountID": {
+                        "mode": "chose",
+                        "label": "Eric's Account"
+                    },
+                    "__IMTCONN__": {
+                        "label": "My IMS User authentication connection "
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account",
+                        "label": "Connection",
+                        "mappable": false,
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "accountID",
+                        "type": "select",
+                        "label": "Account ID",
+                        "mappable": true,
+                        "required": true
+                    },
+                    {
+                        "name": "assetID",
+                        "type": "text",
+                        "label": "Asset ID",
+                        "mappable": true,
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 14,
+            "module": "frame-io:ActionGetAsset",
+            "version": 4,
+            "parameters": {
+                "__IMTCONN__": 193378
+            },
+            "mapper": {
+                "assetID": "12c7bfd3-2a7f-4e23-8a0d-dbde7125c3e1",
+                "accountID": "8d7e7b30-0534-498d-8038-89fdb89abb3b"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 360,
+                    "y": 0
+                },
+                "restore": {
+                    "accountID": {
+                        "mode": "chose",
+                        "label": "Eric's Account"
+                    },
+                    "__IMTCONN__": {
+                        "label": "My IMS User authentication connection "
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account",
+                        "label": "Connection",
+                        "mappable": false,
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "accountID",
+                        "type": "select",
+                        "label": "Account ID",
+                        "mappable": true,
+                        "required": true
+                    },
+                    {
+                        "name": "assetID",
+                        "type": "text",
+                        "label": "Asset ID",
+                        "mappable": true,
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 34,
+            "module": "util:SetVariable2",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "name": "folder_name",
+                "scope": "roundtrip",
+                "value": "{{formatDate(now; \"YYYY-MM-DD\")}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 540,
+                    "y": 0
+                },
+                "restore": {
+                    "scope": {
+                        "label": "One cycle"
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Variable name",
+                        "mappable": false,
+                        "required": true
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "mappable": false,
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "type": "any",
+                        "label": "Variable value",
+                        "mappable": false
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "folder_name",
+                        "type": "any",
+                        "label": "folder_name"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 45,
+            "module": "adobe-photoshop:edit",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 193379
+            },
+            "mapper": {
+                "image": {
+                    "source": {
+                        "type": "url",
+                        "url": "{{14.media_links.high_quality.download_url}}"
+                    }
+                },
+                "edits": {
+                    "autoTone": false,
+                    "color": {
+                        "vibrance": 10,
+                        "saturation": 0
+                    },
+                    "effects": {
+                        "clarity": 8,
+                        "dehaze": 0
+                    },
+                    "sharpen": {
+                        "detail": 10
+                    }
+                },
+                "outputs": [
+                    {
+                        "mediaType": "image/png",
+                        "destination": {
+                            "type": "fusionInternalStorage"
+                        },
+                        "shouldOverwrite": true,
+                        "compression": "none"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 720,
+                    "y": 0
+                },
+                "restore": {
+                    "__IMTCONN__": {
+                        "label": "My Adobe Photoshop (Server-to-Server) connection "
+                    },
+                    "image": {
+                        "nested": {
+                            "source": {
+                                "nested": {
+                                    "type": {
+                                        "mode": "chose",
+                                        "label": "URL (presigned)"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "edits": {
+                        "nested": {
+                            "autoTone": {
+                                "mode": "chose"
+                            },
+                            "autoStraighten": {
+                                "nested": {
+                                    "enabled": {
+                                        "mode": "chose"
+                                    },
+                                    "constrainCrop": {
+                                        "mode": "chose"
+                                    },
+                                    "uprightMode": {
+                                        "mode": "chose",
+                                        "label": ""
+                                    }
+                                }
+                            },
+                            "color": {
+                                "nested": {
+                                    "whiteBalance": {
+                                        "mode": "chose",
+                                        "label": ""
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "outputs": {
+                        "mode": "chose",
+                        "items": [
+                            "undefined"
+                        ]
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account",
+                        "label": "Connection",
+                        "required": true,
+                        "mappable": false
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "edits",
+                        "type": "collection",
+                        "label": "Edits",
+                        "spec": [
+                            {
+                                "name": "autoStraighten",
+                                "type": "collection",
+                                "label": "Auto straighten",
+                                "spec": [
+                                    {
+                                        "name": "enabled",
+                                        "type": "boolean",
+                                        "label": "Enabled",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "constrainCrop",
+                                        "type": "boolean",
+                                        "label": "Constrain crop",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "uprightMode",
+                                        "type": "select",
+                                        "label": "Upright mode",
+                                        "mappable": true,
+                                        "validate": {
+                                            "enum": [
+                                                "auto",
+                                                "off",
+                                                "level",
+                                                "vertical",
+                                                "full"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "light",
+                                "type": "collection",
+                                "label": "Light",
+                                "spec": [
+                                    {
+                                        "name": "exposure",
+                                        "type": "number",
+                                        "label": "Exposure",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "contrast",
+                                        "type": "number",
+                                        "label": "Contrast",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "highlights",
+                                        "type": "number",
+                                        "label": "Highlights",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "shadows",
+                                        "type": "number",
+                                        "label": "Shadows",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "whites",
+                                        "type": "number",
+                                        "label": "Whites",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "blacks",
+                                        "type": "number",
+                                        "label": "Blacks",
+                                        "mappable": true
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "color",
+                                "type": "collection",
+                                "label": "Color",
+                                "spec": [
+                                    {
+                                        "name": "saturation",
+                                        "type": "number",
+                                        "label": "Saturation",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "vibrance",
+                                        "type": "number",
+                                        "label": "Vibrance",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "whiteBalance",
+                                        "type": "select",
+                                        "label": "White balance",
+                                        "mappable": true,
+                                        "validate": {
+                                            "enum": [
+                                                "As Shot",
+                                                "Auto",
+                                                "Daylight",
+                                                "Cloudy",
+                                                "Shade",
+                                                "Tungsten",
+                                                "Fluorescent",
+                                                "Flash",
+                                                "Custom"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "effects",
+                                "type": "collection",
+                                "label": "Effects",
+                                "spec": [
+                                    {
+                                        "name": "clarity",
+                                        "type": "number",
+                                        "label": "Clarity",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "dehaze",
+                                        "type": "number",
+                                        "label": "Dehaze",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "texture",
+                                        "type": "number",
+                                        "label": "Texture",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "vignette",
+                                        "type": "number",
+                                        "label": "Vignette",
+                                        "mappable": true
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "sharpen",
+                                "type": "collection",
+                                "label": "Sharpen",
+                                "spec": [
+                                    {
+                                        "name": "detail",
+                                        "type": "number",
+                                        "label": "Detail",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "radius",
+                                        "type": "number",
+                                        "label": "Radius",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "edgeMasking",
+                                        "type": "number",
+                                        "label": "Edge masking",
+                                        "mappable": true
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "noiseReduction",
+                                "type": "collection",
+                                "label": "Noise reduction",
+                                "spec": [
+                                    {
+                                        "name": "luminance",
+                                        "type": "number",
+                                        "label": "Luminance",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "color",
+                                        "type": "number",
+                                        "label": "Color",
+                                        "mappable": true
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "autoTone",
+                                "type": "boolean",
+                                "label": "Auto tone",
+                                "mappable": true
+                            }
+                        ]
+                    },
+                    {
+                        "name": "outputs",
+                        "spec": [
+                            {
+                                "name": "mediaType",
+                                "type": "select",
+                                "label": "Output format",
+                                "required": true,
+                                "options": [
+                                    {
+                                        "label": "JPEG",
+                                        "value": "image/jpeg",
+                                        "nested": [
+                                            {
+                                                "name": "quality",
+                                                "type": "select",
+                                                "label": "JPEG quality",
+                                                "options": [
+                                                    {
+                                                        "label": "Very poor",
+                                                        "value": "very_poor"
+                                                    },
+                                                    {
+                                                        "label": "Poor",
+                                                        "value": "poor"
+                                                    },
+                                                    {
+                                                        "label": "Low",
+                                                        "value": "low"
+                                                    },
+                                                    {
+                                                        "label": "Medium",
+                                                        "value": "medium"
+                                                    },
+                                                    {
+                                                        "label": "High",
+                                                        "value": "high"
+                                                    },
+                                                    {
+                                                        "label": "Maximum",
+                                                        "value": "maximum"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "PNG",
+                                        "value": "image/png",
+                                        "nested": [
+                                            {
+                                                "name": "compression",
+                                                "type": "select",
+                                                "label": "PNG compression",
+                                                "options": [
+                                                    {
+                                                        "label": "None",
+                                                        "value": "none"
+                                                    },
+                                                    {
+                                                        "label": "Low",
+                                                        "value": "low"
+                                                    },
+                                                    {
+                                                        "label": "Medium",
+                                                        "value": "medium"
+                                                    },
+                                                    {
+                                                        "label": "High",
+                                                        "value": "high"
+                                                    },
+                                                    {
+                                                        "label": "Maximum",
+                                                        "value": "maximum"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "DNG",
+                                        "value": "image/x-adobe-dng"
+                                    },
+                                    {
+                                        "label": "XMP",
+                                        "value": "application/rdf+xml"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "destination",
+                                "spec": [
+                                    {
+                                        "name": "type",
+                                        "type": "select",
+                                        "label": "Destination type",
+                                        "default": "fusionInternalStorage",
+                                        "options": [
+                                            {
+                                                "label": "Fusion internal storage",
+                                                "value": "fusionInternalStorage"
+                                            },
+                                            {
+                                                "label": "URL (presigned PUT)",
+                                                "value": "url",
+                                                "nested": [
+                                                    {
+                                                        "name": "url",
+                                                        "type": "text",
+                                                        "label": "URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "help": "Optional. Specify only for Azure Blob or Dropbox.",
+                                                        "name": "storageType",
+                                                        "type": "select",
+                                                        "label": "Storage provider",
+                                                        "options": [
+                                                            {
+                                                                "label": "Azure",
+                                                                "value": "azure"
+                                                            },
+                                                            {
+                                                                "label": "Dropbox",
+                                                                "value": "dropbox"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Creative Cloud path",
+                                                "value": "creativeCloudPath",
+                                                "nested": [
+                                                    {
+                                                        "name": "creativeCloudPath",
+                                                        "type": "text",
+                                                        "label": "Path",
+                                                        "required": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Creative Cloud file ID",
+                                                "value": "creativeCloudFileId",
+                                                "nested": [
+                                                    {
+                                                        "name": "creativeCloudFileId",
+                                                        "type": "text",
+                                                        "label": "File ID",
+                                                        "required": true
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "required": true
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Destination",
+                                "required": true
+                            },
+                            {
+                                "name": "shouldOverwrite",
+                                "type": "boolean",
+                                "label": "Overwrite existing"
+                            },
+                            {
+                                "name": "width",
+                                "type": "uinteger",
+                                "label": "Width (px)"
+                            },
+                            {
+                                "name": "height",
+                                "type": "uinteger",
+                                "label": "Height (px)"
+                            },
+                            {
+                                "name": "maxWidth",
+                                "type": "uinteger",
+                                "label": "Max width (px)"
+                            },
+                            {
+                                "name": "resample",
+                                "type": "select",
+                                "label": "Resample",
+                                "options": [
+                                    {
+                                        "label": "Bicubic sharper",
+                                        "value": "bicubic_sharper"
+                                    },
+                                    {
+                                        "label": "Bicubic smoother",
+                                        "value": "bicubic_smoother"
+                                    },
+                                    {
+                                        "label": "Bicubic",
+                                        "value": "bicubic"
+                                    },
+                                    {
+                                        "label": "Bilinear",
+                                        "value": "bilinear"
+                                    },
+                                    {
+                                        "label": "Nearest neighbor",
+                                        "value": "nearest_neighbor"
+                                    },
+                                    {
+                                        "label": "Automatic",
+                                        "value": "automatic"
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Outputs",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "image",
+                        "type": "collection",
+                        "label": "Image",
+                        "required": true,
+                        "spec": [
+                            {
+                                "name": "source",
+                                "type": "collection",
+                                "label": "Source",
+                                "required": true,
+                                "spec": [
+                                    {
+                                        "name": "type",
+                                        "type": "select",
+                                        "label": "Source type",
+                                        "required": true,
+                                        "mappable": true,
+                                        "validate": {
+                                            "enum": [
+                                                "url",
+                                                "creativeCloudPath",
+                                                "creativeCloudFileId",
+                                                "lightroomPath"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "url",
+                                        "type": "text",
+                                        "label": "URL",
+                                        "required": true,
+                                        "mappable": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 46,
+            "module": "adobe-photoshop:edit",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 193379
+            },
+            "mapper": {
+                "image": {
+                    "source": {
+                        "type": "url",
+                        "url": "{{4.media_links.high_quality.download_url}}"
+                    }
+                },
+                "edits": {
+                    "autoTone": false,
+                    "color": {
+                        "vibrance": 10,
+                        "saturation": 0
+                    },
+                    "effects": {
+                        "clarity": 8,
+                        "dehaze": 0
+                    },
+                    "sharpen": {
+                        "detail": 10
+                    }
+                },
+                "outputs": [
+                    {
+                        "mediaType": "image/png",
+                        "destination": {
+                            "type": "fusionInternalStorage"
+                        },
+                        "shouldOverwrite": true,
+                        "compression": "none"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                },
+                "restore": {
+                    "__IMTCONN__": {
+                        "label": "My Adobe Photoshop (Server-to-Server) connection "
+                    },
+                    "image": {
+                        "nested": {
+                            "source": {
+                                "nested": {
+                                    "type": {
+                                        "mode": "chose",
+                                        "label": "URL (presigned)"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "edits": {
+                        "nested": {
+                            "autoTone": {
+                                "mode": "chose"
+                            },
+                            "autoStraighten": {
+                                "nested": {
+                                    "enabled": {
+                                        "mode": "chose"
+                                    },
+                                    "constrainCrop": {
+                                        "mode": "chose"
+                                    },
+                                    "uprightMode": {
+                                        "mode": "chose",
+                                        "label": ""
+                                    }
+                                }
+                            },
+                            "color": {
+                                "nested": {
+                                    "whiteBalance": {
+                                        "mode": "chose",
+                                        "label": ""
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "outputs": {
+                        "mode": "chose",
+                        "items": [
+                            {
+                                "destination": {
+                                    "nested": {}
+                                },
+                                "shouldOverwrite": {
+                                    "mode": "edit"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account",
+                        "label": "Connection",
+                        "required": true,
+                        "mappable": false
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "edits",
+                        "type": "collection",
+                        "label": "Edits",
+                        "spec": [
+                            {
+                                "name": "autoStraighten",
+                                "type": "collection",
+                                "label": "Auto straighten",
+                                "spec": [
+                                    {
+                                        "name": "enabled",
+                                        "type": "boolean",
+                                        "label": "Enabled",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "constrainCrop",
+                                        "type": "boolean",
+                                        "label": "Constrain crop",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "uprightMode",
+                                        "type": "select",
+                                        "label": "Upright mode",
+                                        "mappable": true,
+                                        "validate": {
+                                            "enum": [
+                                                "auto",
+                                                "off",
+                                                "level",
+                                                "vertical",
+                                                "full"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "light",
+                                "type": "collection",
+                                "label": "Light",
+                                "spec": [
+                                    {
+                                        "name": "exposure",
+                                        "type": "number",
+                                        "label": "Exposure",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "contrast",
+                                        "type": "number",
+                                        "label": "Contrast",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "highlights",
+                                        "type": "number",
+                                        "label": "Highlights",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "shadows",
+                                        "type": "number",
+                                        "label": "Shadows",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "whites",
+                                        "type": "number",
+                                        "label": "Whites",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "blacks",
+                                        "type": "number",
+                                        "label": "Blacks",
+                                        "mappable": true
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "color",
+                                "type": "collection",
+                                "label": "Color",
+                                "spec": [
+                                    {
+                                        "name": "saturation",
+                                        "type": "number",
+                                        "label": "Saturation",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "vibrance",
+                                        "type": "number",
+                                        "label": "Vibrance",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "whiteBalance",
+                                        "type": "select",
+                                        "label": "White balance",
+                                        "mappable": true,
+                                        "validate": {
+                                            "enum": [
+                                                "As Shot",
+                                                "Auto",
+                                                "Daylight",
+                                                "Cloudy",
+                                                "Shade",
+                                                "Tungsten",
+                                                "Fluorescent",
+                                                "Flash",
+                                                "Custom"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "effects",
+                                "type": "collection",
+                                "label": "Effects",
+                                "spec": [
+                                    {
+                                        "name": "clarity",
+                                        "type": "number",
+                                        "label": "Clarity",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "dehaze",
+                                        "type": "number",
+                                        "label": "Dehaze",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "texture",
+                                        "type": "number",
+                                        "label": "Texture",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "vignette",
+                                        "type": "number",
+                                        "label": "Vignette",
+                                        "mappable": true
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "sharpen",
+                                "type": "collection",
+                                "label": "Sharpen",
+                                "spec": [
+                                    {
+                                        "name": "detail",
+                                        "type": "number",
+                                        "label": "Detail",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "radius",
+                                        "type": "number",
+                                        "label": "Radius",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "edgeMasking",
+                                        "type": "number",
+                                        "label": "Edge masking",
+                                        "mappable": true
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "noiseReduction",
+                                "type": "collection",
+                                "label": "Noise reduction",
+                                "spec": [
+                                    {
+                                        "name": "luminance",
+                                        "type": "number",
+                                        "label": "Luminance",
+                                        "mappable": true
+                                    },
+                                    {
+                                        "name": "color",
+                                        "type": "number",
+                                        "label": "Color",
+                                        "mappable": true
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "autoTone",
+                                "type": "boolean",
+                                "label": "Auto tone",
+                                "mappable": true
+                            }
+                        ]
+                    },
+                    {
+                        "name": "outputs",
+                        "spec": [
+                            {
+                                "name": "mediaType",
+                                "type": "select",
+                                "label": "Output format",
+                                "required": true,
+                                "options": [
+                                    {
+                                        "label": "JPEG",
+                                        "value": "image/jpeg",
+                                        "nested": [
+                                            {
+                                                "name": "quality",
+                                                "type": "select",
+                                                "label": "JPEG quality",
+                                                "options": [
+                                                    {
+                                                        "label": "Very poor",
+                                                        "value": "very_poor"
+                                                    },
+                                                    {
+                                                        "label": "Poor",
+                                                        "value": "poor"
+                                                    },
+                                                    {
+                                                        "label": "Low",
+                                                        "value": "low"
+                                                    },
+                                                    {
+                                                        "label": "Medium",
+                                                        "value": "medium"
+                                                    },
+                                                    {
+                                                        "label": "High",
+                                                        "value": "high"
+                                                    },
+                                                    {
+                                                        "label": "Maximum",
+                                                        "value": "maximum"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "PNG",
+                                        "value": "image/png",
+                                        "nested": [
+                                            {
+                                                "name": "compression",
+                                                "type": "select",
+                                                "label": "PNG compression",
+                                                "options": [
+                                                    {
+                                                        "label": "None",
+                                                        "value": "none"
+                                                    },
+                                                    {
+                                                        "label": "Low",
+                                                        "value": "low"
+                                                    },
+                                                    {
+                                                        "label": "Medium",
+                                                        "value": "medium"
+                                                    },
+                                                    {
+                                                        "label": "High",
+                                                        "value": "high"
+                                                    },
+                                                    {
+                                                        "label": "Maximum",
+                                                        "value": "maximum"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "DNG",
+                                        "value": "image/x-adobe-dng"
+                                    },
+                                    {
+                                        "label": "XMP",
+                                        "value": "application/rdf+xml"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "destination",
+                                "spec": [
+                                    {
+                                        "name": "type",
+                                        "type": "select",
+                                        "label": "Destination type",
+                                        "default": "fusionInternalStorage",
+                                        "options": [
+                                            {
+                                                "label": "Fusion internal storage",
+                                                "value": "fusionInternalStorage"
+                                            },
+                                            {
+                                                "label": "URL (presigned PUT)",
+                                                "value": "url",
+                                                "nested": [
+                                                    {
+                                                        "name": "url",
+                                                        "type": "text",
+                                                        "label": "URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "help": "Optional. Specify only for Azure Blob or Dropbox.",
+                                                        "name": "storageType",
+                                                        "type": "select",
+                                                        "label": "Storage provider",
+                                                        "options": [
+                                                            {
+                                                                "label": "Azure",
+                                                                "value": "azure"
+                                                            },
+                                                            {
+                                                                "label": "Dropbox",
+                                                                "value": "dropbox"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Creative Cloud path",
+                                                "value": "creativeCloudPath",
+                                                "nested": [
+                                                    {
+                                                        "name": "creativeCloudPath",
+                                                        "type": "text",
+                                                        "label": "Path",
+                                                        "required": true
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Creative Cloud file ID",
+                                                "value": "creativeCloudFileId",
+                                                "nested": [
+                                                    {
+                                                        "name": "creativeCloudFileId",
+                                                        "type": "text",
+                                                        "label": "File ID",
+                                                        "required": true
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "required": true
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Destination",
+                                "required": true
+                            },
+                            {
+                                "name": "shouldOverwrite",
+                                "type": "boolean",
+                                "label": "Overwrite existing"
+                            },
+                            {
+                                "name": "width",
+                                "type": "uinteger",
+                                "label": "Width (px)"
+                            },
+                            {
+                                "name": "height",
+                                "type": "uinteger",
+                                "label": "Height (px)"
+                            },
+                            {
+                                "name": "maxWidth",
+                                "type": "uinteger",
+                                "label": "Max width (px)"
+                            },
+                            {
+                                "name": "resample",
+                                "type": "select",
+                                "label": "Resample",
+                                "options": [
+                                    {
+                                        "label": "Bicubic sharper",
+                                        "value": "bicubic_sharper"
+                                    },
+                                    {
+                                        "label": "Bicubic smoother",
+                                        "value": "bicubic_smoother"
+                                    },
+                                    {
+                                        "label": "Bicubic",
+                                        "value": "bicubic"
+                                    },
+                                    {
+                                        "label": "Bilinear",
+                                        "value": "bilinear"
+                                    },
+                                    {
+                                        "label": "Nearest neighbor",
+                                        "value": "nearest_neighbor"
+                                    },
+                                    {
+                                        "label": "Automatic",
+                                        "value": "automatic"
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Outputs",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "image",
+                        "type": "collection",
+                        "label": "Image",
+                        "required": true,
+                        "spec": [
+                            {
+                                "name": "source",
+                                "type": "collection",
+                                "label": "Source",
+                                "required": true,
+                                "spec": [
+                                    {
+                                        "name": "type",
+                                        "type": "select",
+                                        "label": "Source type",
+                                        "required": true,
+                                        "mappable": true,
+                                        "validate": {
+                                            "enum": [
+                                                "url",
+                                                "creativeCloudPath",
+                                                "creativeCloudFileId",
+                                                "lightroomPath"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "url",
+                                        "type": "text",
+                                        "label": "URL",
+                                        "required": true,
+                                        "mappable": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "module": "frame-io:createAFolder",
+            "version": 4,
+            "parameters": {
+                "__IMTCONN__": 193378
+            },
+            "mapper": {
+                "name": "{{34.folder_name}}",
+                "accountID": "8d7e7b30-0534-498d-8038-89fdb89abb3b",
+                "projectID": "afc4df0f-2011-4c6d-a8e8-056f4b0f5a90",
+                "destination": "/d7e879b2-1dae-40c1-aed7-eb0b28ef04d1",
+                "workspaceID": "ec1a9c59-def6-49ee-94df-1037dca0625b"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1080,
+                    "y": 0
+                },
+                "restore": {
+                    "accountID": {
+                        "mode": "chose",
+                        "label": "Eric's Account"
+                    },
+                    "projectID": {
+                        "mode": "chose",
+                        "label": "Labcabincolorado"
+                    },
+                    "__IMTCONN__": {
+                        "label": "My IMS User authentication connection "
+                    },
+                    "destination": {
+                        "mode": "chose",
+                        "path": [
+                            "BIRD_SAUCEDART"
+                        ]
+                    },
+                    "workspaceID": {
+                        "mode": "chose",
+                        "label": "Eric's Team"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account",
+                        "label": "Connection",
+                        "mappable": false,
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "accountID",
+                        "type": "select",
+                        "label": "Account ID",
+                        "mappable": true,
+                        "required": true
+                    },
+                    {
+                        "name": "workspaceID",
+                        "type": "select",
+                        "label": "Workspace ID",
+                        "mappable": true,
+                        "required": true
+                    },
+                    {
+                        "name": "projectID",
+                        "type": "select",
+                        "label": "Project ID",
+                        "mappable": true,
+                        "required": true
+                    },
+                    {
+                        "name": "destination",
+                        "type": "folder",
+                        "label": "Path",
+                        "mappable": true,
+                        "required": true
+                    },
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Name",
+                        "mappable": true,
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 8,
+            "module": "frame-io:ActionCreateAsset2",
+            "version": 4,
+            "parameters": {
+                "__IMTCONN__": 193378
+            },
+            "mapper": {
+                "accountID": "8d7e7b30-0534-498d-8038-89fdb89abb3b",
+                "workspaceID": "ec1a9c59-def6-49ee-94df-1037dca0625b",
+                "projectID": "afc4df0f-2011-4c6d-a8e8-056f4b0f5a90",
+                "destination": "/{{6.id}}/",
+                "uploadType": "remote_upload",
+                "fileName": "FLOCKED_SAUCED.PNG",
+                "url": "{{46.data.result.outputs[].destination.url}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1260,
+                    "y": 0
+                },
+                "restore": {
+                    "__IMTCONN__": {
+                        "label": "My IMS User authentication connection "
+                    },
+                    "accountID": {
+                        "mode": "chose",
+                        "label": "Eric's Account"
+                    },
+                    "workspaceID": {
+                        "mode": "chose",
+                        "label": "Eric's Team"
+                    },
+                    "projectID": {
+                        "mode": "chose",
+                        "label": "Labcabincolorado"
+                    },
+                    "destination": {
+                        "mode": "edit",
+                        "path": []
+                    },
+                    "uploadType": {
+                        "mode": "chose",
+                        "label": "Remote"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account",
+                        "label": "Connection",
+                        "required": true,
+                        "mappable": false
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "accountID",
+                        "type": "select",
+                        "label": "Account ID",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "workspaceID",
+                        "type": "select",
+                        "label": "Workspace ID",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "projectID",
+                        "type": "select",
+                        "label": "Project ID",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "destination",
+                        "type": "folder",
+                        "label": "Path",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "uploadType",
+                        "type": "select",
+                        "label": "Upload type",
+                        "required": true,
+                        "mappable": true,
+                        "validate": {
+                            "enum": [
+                                "local_upload",
+                                "remote_upload"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "fileName",
+                        "type": "filename",
+                        "label": "File name",
+                        "required": true,
+                        "mean": "name",
+                        "mappable": true
+                    },
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "Source URL",
+                        "required": true,
+                        "mappable": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 11,
+            "module": "frame-io:ActionCreateAsset2",
+            "version": 4,
+            "parameters": {
+                "__IMTCONN__": 193378
+            },
+            "mapper": {
+                "accountID": "8d7e7b30-0534-498d-8038-89fdb89abb3b",
+                "workspaceID": "ec1a9c59-def6-49ee-94df-1037dca0625b",
+                "projectID": "afc4df0f-2011-4c6d-a8e8-056f4b0f5a90",
+                "destination": "/{{6.id}}/",
+                "uploadType": "remote_upload",
+                "fileName": "SUBJECT_SAUCED.PNG",
+                "url": "{{45.data.result.outputs[].destination.url}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1440,
+                    "y": 0
+                },
+                "restore": {
+                    "__IMTCONN__": {
+                        "label": "My IMS User authentication connection "
+                    },
+                    "accountID": {
+                        "mode": "chose",
+                        "label": "Eric's Account"
+                    },
+                    "workspaceID": {
+                        "mode": "chose",
+                        "label": "Eric's Team"
+                    },
+                    "projectID": {
+                        "mode": "chose",
+                        "label": "Labcabincolorado"
+                    },
+                    "destination": {
+                        "mode": "edit",
+                        "path": []
+                    },
+                    "uploadType": {
+                        "mode": "chose",
+                        "label": "Remote"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account",
+                        "label": "Connection",
+                        "required": true,
+                        "mappable": false
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "accountID",
+                        "type": "select",
+                        "label": "Account ID",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "workspaceID",
+                        "type": "select",
+                        "label": "Workspace ID",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "projectID",
+                        "type": "select",
+                        "label": "Project ID",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "destination",
+                        "type": "folder",
+                        "label": "Path",
+                        "required": true,
+                        "mappable": true
+                    },
+                    {
+                        "name": "uploadType",
+                        "type": "select",
+                        "label": "Upload type",
+                        "required": true,
+                        "mappable": true,
+                        "validate": {
+                            "enum": [
+                                "local_upload",
+                                "remote_upload"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "fileName",
+                        "type": "filename",
+                        "label": "File name",
+                        "required": true,
+                        "mean": "name",
+                        "mappable": true
+                    },
+                    {
+                        "name": "url",
+                        "type": "url",
+                        "label": "Source URL",
+                        "required": true,
+                        "mappable": true
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 2,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "app.workfrontfusion.com"
+    }
+}
